@@ -1,0 +1,210 @@
+
+root@goorm:/workspace/mysql# mysql-ctl cli
+
+ * Stopping MySQL database server mysqld
+   ...done.
+
+MySQL 5.7 database added.  Please make note of these credentials:
+
+       Root User: root
+   Database Name: mysql
+
+ * Starting MySQL database server mysqld
+No directory, logging in with HOME=/
+   ...done.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 4
+Server version: 5.7.41-0ubuntu0.18.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql>
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.00 sec)
+
+mysql> create database trendytech;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
+| trendytech         |
++--------------------+
+5 rows in set (0.01 sec)
+
+mysql> USE mysql;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> select database();
++------------+
+| database() |
++------------+
+| mysql      |
++------------+
+1 row in set (0.00 sec)
+
+mysql> USE trendytech;
+Database changed
+
+mysql> CREATE TABLE employee
+    -> (
+    -> name VARCHAR(50),
+    -> age INT,
+    -> salary INT
+    -> )
+    -> ;
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> describe employee;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| name   | varchar(50) | YES  |     | NULL    |       |
+| age    | int(11)     | YES  |     | NULL    |       |
+| salary | int(11)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+
+mysql> desc employee;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| name   | varchar(50) | YES  |     | NULL    |       |
+| age    | int(11)     | YES  |     | NULL    |       |
+| salary | int(11)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> show tables;
++----------------------+
+| Tables_in_trendytech |
++----------------------+
+| employee             |
++----------------------+
+1 row in set (0.00 sec)
+
+
+mysql> drop employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syn
+tax to use near 'employee' at line 1
+
+mysql> drop table employee;
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> SELECT database();
++------------+
+| database() |
++------------+
+| trendytech |
++------------+
+1 row in set (0.00 sec)
+
+mysql> drop database trendytech;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> CREATE TABLE employee ( name VARCHAR(50), age INT, salary INT );
+ERROR 1046 (3D000): No database selected
+
+mysql> show tables;
+ERROR 1046 (3D000): No database selected
+mysql> show database();
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syn
+tax to use near 'database()' at line 1
+mysql> select database();
++------------+
+| database() |
++------------+
+| NULL       |
++------------+
+1 row in set (0.00 sec)
+
+
+
+mysql> select database();
+mysql> USE trendytech;
+mysql> show tables;
+mysql> drop employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'employee' at line 1
+mysql> drop table employee;
+Query OK, 0 rows affected (0.10 sec)
+
+
+create table employee(
+firstname varchar(20) NOT NULL,
+middlename varchar(20),
+lastname varchar(20) not null,
+age int not null,
+salary int not null,
+location varchar(20) not null
+);
+
+
+insert into employee values ('harish','kumar','pillai',29,500000,'Bangalore');
+
+insert into employee values ('abhishek','kumar','pillai',25,1500000,'Ahmedabad'),('uma','ramlingam','pillai',51,2000000,'Pondicherry');
+
+insert into employee (firstname,lastname,age,salary,location) values('ramlingam','pillai',54,250000,'Udupi');
+
+mysql> select * from employee;
++-----------+------------+----------+-----+---------+-------------+
+| firstname | middlename | lastname | age | salary  | location    |
++-----------+------------+----------+-----+---------+-------------+
+| harish    | kumar      | pillai   |  29 |  500000 | Bangalore   |
+| abhishek  | kumar      | pillai   |  25 | 1500000 | Ahmedabad   |
+| uma       | ramlingam  | pillai   |  51 | 2000000 | Pondicherry |
+| ramlingam | NULL       | pillai   |  54 |  250000 | Udupi       |
++-----------+------------+----------+-----+---------+-------------+
+4 rows in set (0.00 sec)
+
+
+DROP TABLE employee;
+
+CREATE TABLE employee 
+(
+id int PRIMARY KEY,
+firstname varchar(20) NOT NULL,
+middlename varchar(20),
+lastname varchar(20) NOT NULL,
+age int NOT NULL,
+salary int NOT NULL,
+location varchar(20) NOT NULL DEFAULT 'Bangalore'
+);
+
+
+Alternate way to include primary key
+
+
+CREATE TABLE employee 
+(
+id int,
+firstname varchar(20) NOT NULL,
+middlename varchar(20),
+lastname varchar(20) NOT NULL,
+age int NOT NULL,
+salary int NOT NULL,
+location varchar(20) NOT NULL DEFAULT 'Bangalore',
+PRIMARY KEY(id)
+);
